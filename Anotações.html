@@ -1,0 +1,275 @@
+->defer{ //adiar
+    quando a tag <scrip> for inserida no comeco da pag, faz com que o javascript carrege 
+        junto da pagina, evitando problema no codigo de carregamento
+    Ex. 
+        ( <script src='./chamando_o_arquivo' defer> </script>)
+}
+
+typeof{
+    ver qual o tipo da variavel(String, Number etc)
+}
+
+->Tipo "var" não é mais utilizado nos dias de hoje( pode ser acessado de qualquer escopo, variavel Global)
+
+toFixed(){
+    funcao para aredondar os valores apos a virgula(quantidade de num. apos a virgula)
+    Ex.
+        let val = 12.273423394289;
+        console.log(val.toFixed(2))
+        //output: 12.27
+}
+
+Template Literals{
+    permitir unir variaveis e string numa mesma sintaxe(uso do craze ` `)
+    Ex.
+        `${valor} x ${index} = ${valor * index}`
+        //output: 7 x 7 = 49
+}
+
+toLowerCase(){
+    deixa todas as letras em minusculos
+    Ex.
+        "ABAcate".toLowercase()
+        //output: abacate
+}
+
+replace(){
+    Procuda dentro da String, o parametro para ser substituido
+    Ex.
+    'Henrique Braz'.replace(' ', ''); //substituindo o "espaço( ' ' ) por vazio{ '' }"
+    //output: HenriqueBraz
+}
+
+-> Strict Mode{
+    elimina erros silenciosos(qualquer coisa errada ele avisa, possibilitanto evitar erros no futuro)
+    Ex.
+        No comeco do Cod.: "use strict"
+}
+
+->shortName{
+    Objectos que caso seja o mesmo nome, nao precisa declarar
+    Ex.
+        //Objeto Normal
+        function Tenis(tamanho, estoque, preco) {
+            return {
+                tamanho: tamanho,
+                estoque: estoque,
+                preco: preco,
+            }
+        }
+        
+        //Objeto ShortName
+        function Tenis(tamanho, estoque, preco) {
+            return {
+                tamanho,
+                estoque,
+                preco,
+            }
+        }
+}
+
+Validar dados dentro de um Objeto:{
+    hasOwnProperty/in 
+    Ex.
+        console.log(Tenis.hasOwnProperty('tamanho')); //true
+        console.log("tamanho" in Tenis); //true
+}
+
+Clonando Obj{
+    function cloneObject(obj){
+        return JSON.parse(JSON.stringify(obj))
+    }
+
+    clone = cloneObject(Tenis);
+
+    //Mesclando
+    clone1 = Object.assign(
+        cloneObject(Tenis),
+        cloneObject(link)
+    )
+
+    //Mesclando Diferente
+    let clone2 = {
+        ...cloneObject(Tenis),
+        ...cloneObject(link)
+    };
+}
+
+->mostrando valores de Array{
+    console.table(array);
+}
+
+-> for, for of são usados em arrays e objetos, ja o for in apenas para objetos;
+
+->filter busca todos os elementos, find apenas um 
+
+->every //  dentro do objeto, verifica se o mesmo obj possui valores iguais
+    Ex.
+        const pedido = [{bebida:'Suco'}, {bebida:'Refri'}, {bebida:'Suco'}];
+
+        const temSuco = pedidos.every((element) => {
+            return element.bebida === 'Suco'; //false, pois existe bebida diferente alem de "Suco"
+        });
+
+->some // verifica se apenas 1 dos valores equivale a sua condicao
+    Ex.
+    const existeSuco = pedidos.some((element, index) => {
+        return element.bebida === 'Suco'; //true
+    });
+
+->reduce //soma dos valores de um obj
+    Ex.
+    const balancete = pedidos.reduce((total, element) => {
+        return total + element.preco;
+    }, 0);
+
+DOM{
+    document.querySelector('tag'); // pega o a tag inteira
+    document.querySelector('tag tagfilho'); //pega o que tiver dentro da tag filho
+
+    p = document.querySelectorAll('tag') //pega todos que forem da tag/id/class
+        Ex.
+        p.forEach((element, index) => {  //apenas se for um NodeList, caso for HTMLCollection nao é possivel
+            console.log(index, element);
+        })
+
+    p = document.getElementsByClassName('paragrafo') => Collection //todas as classes
+        Ex.
+        for(let element of p ){
+            console.log(element);
+        }
+
+    p = document.getElementsByTagName('p'); => Collection //todas as que tiveram a tag
+        Ex.
+            for(let element of p){
+                console.log(element);
+            }
+
+    /*
+        textContent => Retorna o texto com formatacoes, sem os elementos
+        innerText => retorna somente o texto, sem formatacao
+        //os dois alteram o texto / sem diferenca/ nao e possivel adc elementos/tag 
+    */
+        Ex.
+            p.textContent = '<stron>Henrique B. Madeira</stron>';  
+        Output: 
+            "<stron>Henrique B. Madeira</stron>"
+
+    /*
+        innerHtml => retorna o texto, com formatacao e com elementos //da pra adc elementos/tag //Mais Bonito
+        createElement => Cria um elemento HTML //mais performace
+    */
+        Ex.
+            div.innerHTML= 'Esse é meu texto <strong> alterado</strong>'
+        Output: 
+            Esse é meu texto  alterado ("alterado" ficou em negrito)
+        
+        Ex.
+            const divId = document.querySelector('#div'); //divId diz quem e
+
+            const elementUl = document.createElement('ul'); //elementUl recebe a tag ul
+
+            [1,2,3].forEach((element) => {
+                const elementLi = document.createElement('li'); //elementLi recebe a tag li
+                elementUl.appendChild(elementLi) //elementUl recebe dentro(filhos) o elementLi
+            })
+            divId.appendChild(elementUl) //divId recebe dentro(filho) o elementUl
+
+    /*
+            set, get,remove: atribute
+    
+            Ex.
+                const div = document.querySelector('div');
+                div.setAttribute('id', 'teste');
+                div.setAttribute('class', 'active'); //caso setar algo, e ja exista outro, substitui, igual variavel
+                div.setAttribute('class', `${div.getAttribute('class')} background-red`); //forma para nao substituie, apenas adicionar
+                div.setAttribute('style', 'background: red')
+                div.removeAttribute('style');
+                console.log(div.getAttribute('id')); //output teste
+    */
+
+    ->createDocumentFragment//pedaco do document fora do DOM, melhor para projetos grandes e pesados
+        // faz as operacoes que tem pra fazer e dps joga pro HTML
+            Ex.
+                const ul = document.querySelector('ul');
+                const fragment = document.createDocumentFragment();
+                
+                const lanches = ['Lanche 1', 'Lanche 2', 'Lanche 3', 'Lanche 4']
+                
+                lanches.forEach((element) => {
+                    const li = document.createElement('li');
+                    li.innerText = element;
+                    fragment.append(li)
+                });
+                
+                ul.append(fragment)
+
+    ->Remover elementos:
+        Ex.
+        const li = document.querySelectorAll('li');
+        const div = document.querySelector('div');
+        
+        li[2].remove(); //para array
+        div.remove()
+
+    ->alterando com o style
+        Ex. 
+        const h1 = document.querySelector('h1');
+        h1.style.fontFamily = 'Arial';
+        h1.style.color = 'red';
+
+    ->Classes{
+        h1.classList.add('active', 'teste1') //adicionando 
+        h1.classList.remove('teste1', 'teste2'); //removendo
+        h1.classList.toggle('teste2') //se nao tiver, adiciona, caso tenha, remove
+
+        if (h1.classList.contains('active')) {
+            console.log('Existe a classe active')
+        }
+        console.log(h1.className); //selecionando as classes dentro do h1
+    }
+
+    /*
+        Pais e filhos
+        ->Pai{
+            const strong = document.querySelector('strong');
+            console.log(strong.parentElement); //Indiferente
+            console.log(strong.parentNode);
+        }
+        ->Filho{
+            const container = document.querySelector('.container');
+            console.log(container.children); //HTMLCollection //Bom porem nao da pra usar foreach
+            console.log(container.childNodes); //NodeList //Ruim pois puxa espacamenstos
+
+            //Transformar o HTMLCollection em array para usar no foreach
+            const children = Array.from(container.children);
+            children.forEach((rest) => {
+                console.log(rest);
+            })
+        }
+        ->Filhos{
+            first(){
+                const p = document.querySelector(".paragrafo");
+                console.log(p.firstChild); //pega o texto em si
+                console.log(p.firstElementChild); //pega a tag
+            }
+            last(){
+                const container = document.querySelector('.container');
+                console.log(container.lastChild); //texto
+                console.log(container.lastElementChild); // pega a tag
+            }
+            ->Irmaos{
+                next{
+                    const h1 = document.querySelector('h1');
+                    console.log(h1.nextSibling); //texto //pega o de baixo indiferendo do que seja, tag ou texto
+                    console.log(h1.nextElementSibling); //elemento/tag de baixo
+                }
+                previous{
+                    const p = document.querySelector('.paragrafo');
+                    console.log(p.previousSibling); //texto //pega o de ciam indiferendo do que seja, tag ou texto
+                    console.log(p.previousElementSibling); //elemento/tag de cima
+                }
+            }
+        }
+    */
+}
