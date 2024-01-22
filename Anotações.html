@@ -206,17 +206,17 @@ DOM{
 
     ->Remover elementos:
         Ex.
-        const li = document.querySelectorAll('li');
-        const div = document.querySelector('div');
+            const li = document.querySelectorAll('li');
+            const div = document.querySelector('div');
         
-        li[2].remove(); //para array
-        div.remove()
+            li[2].remove(); //para array
+            div.remove()
 
     ->alterando com o style
         Ex. 
-        const h1 = document.querySelector('h1');
-        h1.style.fontFamily = 'Arial';
-        h1.style.color = 'red';
+            const h1 = document.querySelector('h1');
+            h1.style.fontFamily = 'Arial';
+            h1.style.color = 'red';
 
     ->Classes{
         h1.classList.add('active', 'teste1') //adicionando 
@@ -291,7 +291,7 @@ DOM{
 
         container.insertBefore(newH2, paragrafo); //inserindo acima da tag selecionada
     }
-    
+
     ->Before and After{
         const container = document.querySelector('.container');
         const newStrong = document.createElement('strong'); //criando elemento 
@@ -299,5 +299,107 @@ DOM{
 
         container.after(newStrong); //add dps do container
         container.before(newStrong); //add dps do container (obs. so pode add after ou before, os dois nao da)
+    }
+
+    ->OnClick{
+        Front;
+        <!-- Não é aconselhavel usar o onclick -->
+        <button onclick="acionarAlert(35)">Acionar Alert</button>
+        Back:
+        const acionarAlert = (value) => {
+            alert(value);
+        }
+    }
+    ->OnClick 1{
+        <button >Acionar Alert</button>
+
+        const btn = document.querySelector('button');
+        btn.onclick = function alertOne(){
+            alert('123');
+        }
+        //se fizer isso, esse vai substituir o ultimo
+        btn.onclick = function alertTwo(){ 
+            alert('321')
+        }
+    }
+    ->OnClick 2 {
+        const btn = document.querySelector('button');
+        const body = document.querySelector('body');
+
+        //nao substitui o antigo
+        btn.addEventListener('click', (event) => {
+            body.style.background = 'red';
+        });
+        btn.addEventListener('mouseover', (event) => {
+            body.style.background = '#FFF';
+        });
+        btn.addEventListener('mouseleave', (event) => {
+            body.style.background = '#FF3';
+        });
+    }
+
+    ->Removendo escutas de Evento{
+        const btn = document.querySelector('button');
+        const adicionarAlert = () => {
+            let validator = false;
+            alert(123);
+            validator = true;
+
+            if(validator){
+                btn.removeEventListener('click', adicionarAlert);
+            }
+        };
+        btn.addEventListener('click', adicionarAlert);
+    }
+    ->Previnindo uma Ação{
+        <a href="http://agro.localhost/adm/testes" >Acessar o site</a>
+        link.addEventListener('click', (event) => {
+            event.preventDefault(); //previne uma acao
+            console.log("Evento prevenido");
+        })
+    }
+    ->Delegation //Delegando{
+        Front:
+            <ul id='menu'>
+                <li class='home'>Home</li>
+                <li class="sobre">Sobre</li>
+                <li class="contato">Contato</li>
+            </ul>
+        Back:
+            const menu = document.querySelector('#menu');
+
+            menu.addEventListener('click', (event) => {
+                let { target, currentTarget } = event;
+                const body = document.querySelector('body');
+
+                // console.log(target.getAttribute('class'));
+
+                switch (target.getAttribute('class')) {
+                    case 'home':
+                        body.style.background = 'red';
+                        console.log('Home');
+                        break;
+                    case 'sobre':
+                        body.style.background = 'blue';
+                        console.log('Sobre');
+                        break;
+                    case 'contato':
+                        body.style.background = '#FF3';
+                        console.log('Contato');
+                        break;
+                }
+            })
+    }
+    ->Validando{
+        //pode-se user "?" antes do "evento": 
+            menu?.addEventListener('click', (event) => {
+                console.log('event');
+            })
+        //Ou usar o if:
+            if(menu){
+                menu.addEventListener('click', (event) => {
+                    console.log('event');
+                })
+            }
     }
 }
