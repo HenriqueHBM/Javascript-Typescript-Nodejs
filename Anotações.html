@@ -402,4 +402,80 @@ DOM{
                 })
             }
     }
+    ->Forms{
+        Formulario{
+            Front:
+                <form action="..." method="get" id="registrar">
+                    <label >
+                        Name 
+                        <input type="text" name="name">
+                    </label>
+                    <br>
+                    <label >password
+                        <input type="password" name="password">
+                    </label>
+                    <br>
+                    <button>Registrar</button>
+                </form>
+            Back: 
+                const form = document.forms.namedItem('registrar');
+                form.addEventListener('submit', (event) => {
+                    event.preventDefault();
+                    const name = (form.name.value);
+                    const password = (form.password.value);
+                    console.log(name, password);
+                })
+        }
+        ->FormData{
+            form.addEventListener('submit', (event) => {
+                event.preventDefault();
+            
+                const name = (form.name.value);
+                const password = (form.password.value);
+            
+                const formData = new FormData(form); 
+                // console.log(formData);
+            
+                // formData.forEach((res) => { //percorendo os dados ou 
+                //     console.log(res);
+                // });
+                
+                formData.set('name', name); //seta
+                formData.set('password', name);
+                
+                console.log(formData.has('name')); //pergunta se tem
+            
+                if (formData.has('name')) {
+                    console.log(formData.get('name'));
+                    console.log(formData.get('password'));
+                    
+                }
+            
+                formData.delete('name'); //apaga
+                console.log(formData.has('name'));
+        
+                // if(name && password) {
+                //     console.log(name, password);
+                //     form.submit();
+                // }
+            
+            });
+        }
+        ->Input no Form{
+            const form = document.forms.namedItem('registrar');
+            form.addEventListener('input', (event) => { //change, submit
+                event.preventDefault();
+
+                const name = form.name.value;
+                const password = (form.password.value);
+
+                const newDiv = document.createElement('div');
+                newDiv.innerText = name;
+
+                form.nextElementSibling.remove();
+                form.after(newDiv);
+
+            });
+        }
+    }
 }
