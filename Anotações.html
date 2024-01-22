@@ -433,27 +433,28 @@ DOM{
                 const name = (form.name.value);
                 const password = (form.password.value);
             
-                const formData = new FormData(form); 
-                // console.log(formData);
+                const formData = new FormData(form); //variavel recebendo um FormData do (form)
+                // console.log(formData); //visualizar o que é o formData
             
                 // formData.forEach((res) => { //percorendo os dados ou 
                 //     console.log(res);
                 // });
                 
-                formData.set('name', name); //seta
-                formData.set('password', name);
+                formData.set('name', name); //setando o valor
+                formData.set('password', password);
                 
-                console.log(formData.has('name')); //pergunta se tem
+                console.log(formData.has('name')); //pergunta se "possui" //true
             
                 if (formData.has('name')) {
-                    console.log(formData.get('name'));
+                    console.log(formData.get('name'));  //pegando o valor
                     console.log(formData.get('password'));
                     
                 }
             
-                formData.delete('name'); //apaga
-                console.log(formData.has('name'));
+                formData.delete('name'); //apagando o valor'
+                console.log(formData.has('name')); //false
         
+                //forma primaria pra saber se possui valor
                 // if(name && password) {
                 //     console.log(name, password);
                 //     form.submit();
