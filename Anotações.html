@@ -272,4 +272,32 @@ DOM{
             }
         }
     */
+
+    ->Apend{
+        container.append('<strong> Ola </strong>'); //acrescentar um filho, mas a tag em escrito
+
+        //como acrescentar usando appendChild
+        const newDiv = document.createElement('div');
+        newDiv.innerText = '<strong>Ola Henrique</strong>'; //acrescenta um filho, mas a tag em escrito tbm
+        container.appendChild(newDiv);
+    }
+
+    ->InsertBefore{
+        const container =  document.querySelector('.container'); //pegando container
+        const paragrafo = container.querySelector('.paragrafo'); //pegando tag  dentro do container
+
+        const newH2 = document.createElement('h2'); //criando o elemento
+        newH2.innerText = 'Novo Titulo H2'; //adc no elemento
+
+        container.insertBefore(newH2, paragrafo); //inserindo acima da tag selecionada
+    }
+    
+    ->Before and After{
+        const container = document.querySelector('.container');
+        const newStrong = document.createElement('strong'); //criando elemento 
+        newStrong.innerText = 'Ola Henrique'; //texto do elemento
+
+        container.after(newStrong); //add dps do container
+        container.before(newStrong); //add dps do container (obs. so pode add after ou before, os dois nao da)
+    }
 }
