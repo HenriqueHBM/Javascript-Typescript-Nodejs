@@ -182,7 +182,7 @@ DOM{
                 const div = document.querySelector('div');
                 div.setAttribute('id', 'teste');
                 div.setAttribute('class', 'active'); //caso setar algo, e ja exista outro, substitui, igual variavel
-                div.setAttribute('class', `${div.getAttribute('class')} background-red`); //forma para nao substituie, apenas adicionar
+                div.setAttribute('class', `${div.getAttribute('class')} background-red`); //forma para nao substituir, apenas adicionar
                 div.setAttribute('style', 'background: red')
                 div.removeAttribute('style');
                 console.log(div.getAttribute('id')); //output teste
@@ -478,5 +478,40 @@ DOM{
 
             });
         }
+    }
+}
+Bug e Debug{
+    ->Exception{
+        /*
+            Evento ou condicao que ocorre durante a exeucao de um programa,
+            e interrompe o fluxo normal de execucao:
+        */
+        const number = '123';
+
+        console.log(number === 123);
+        if( number === 123){
+            return 'Seu Num é 123 - type Number';
+        }
+        console.log(number);
+        throw new Error('Deu ruim'); //avisa de um erro
+    }
+
+    ->Try Catch{
+        try {
+            const number = '123';
+    
+            if (number === 123) {
+                return 'Seu Num é 123 - type Number';
+            }
+    
+            throw new Error('Deu ruim');
+    
+        } catch (error) {
+            throw error // caso voce ja tenha executado o throw new Error() no codigo acima//para a execucao
+            throw new Error(error); //para a execucao
+            return error // continua a execucao
+    
+        }
+    }
     }
 }
