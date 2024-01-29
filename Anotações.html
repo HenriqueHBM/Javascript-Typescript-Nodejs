@@ -513,5 +513,43 @@ Bug e Debug{
     
         }
     }
+    
+}
+
+Timers{
+    setTimeout{
+        setTimeout( () => { //uma vez dps do tempo colocado
+            console.log('Meu Timer');
+        }, 2000); //tempo;
+    }
+    clearTimeout{
+        //para usar o clear, precisa declarar como uma variaevl o timer
+        const timer = setTimeout( () => {
+            console.log('Meu Timer');
+        });
+        
+        console.log('Ola');
+
+        clearTimeout(timer); //eliminando o timerOut
+    }
+
+    setInterval{
+        setInterval( () => { //fica repetindo a cada intervalo de tempo
+            console.log('Timer iniciado');
+        }, 2000); //tempo
+    }
+
+    clearInterval{
+        //para usar o clear, precisa declarar como uma variaevl o timer
+        const timer = setInterval( () => {
+            console.log('Meu Timer');
+        },2000);
+        
+        console.log('Ola');
+        
+        setTimeout( () => {
+            clearInterval(timer); //parando o setInterval dps de 6seg
+            console.log('Cabou');
+        },6000);
     }
 }
