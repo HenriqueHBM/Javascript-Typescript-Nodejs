@@ -553,3 +553,192 @@ Timers{
         },6000);
     }
 }
+Assincrono{
+    /*
+        Executar tarefas de forma não bloqueante, executando enquanto aguarda a
+        conclusão de determinada operação
+    */
+
+    Callback{
+
+        setInterval( () => { //e uma callback
+            returnConsole();
+        }, 3000);
+        const returnConsole = ()=> {
+            return console.log('Meu Console Funcionou');;
+        }
+        
+        const meuCallback = (func) => {
+            console.log(func()); //caso voce esteja passando uma funcao ou arrow function, tem que declarar o func como funcao tbm
+        }
+        
+        meuCallback(() => {
+            return 2 + 2;
+        });
+    }
+
+    Promise{
+
+        /*
+        Promise obj que representam a conclusao ou falha de uma tarefa.
+        Sintaxe mais limpa e estruturada
+        */
+
+        const pedido = (pedido) => {
+        return new Promise((resolve, reject) => {
+
+            if(pedido === 'Pizza'){
+                return reject(`Não temos seu pedido: ${pedido}`) //return caso tenha erro, ja avisar
+            }
+
+            setTimeout(() => {
+                resolve(`Chegou seu pedido: ${pedido}`); //se der certo
+            }, 3000);
+
+        });
+        }
+
+        pedido('Pizza').then((resPedido) => { //aguarda a resposta da funcao
+        console.log(resPedido);
+        }).catch( (errPedido) => { //se der erro, avisa sem parar a producao do codigo
+        console.log(errPedido);
+        }).finally( () => { //quando terminar tudo
+        console.log('Deu bom todo o processo do pedido');
+        });
+    }
+    Async - Await{
+
+        /*
+        forma mais recente e legivel de lidar com tarefas assincronas 
+        funcoes assincronas para pausar ate que uam promise seja resolvida
+        */
+
+    
+        const reservarPedido = async () => {
+            try {
+                console.log(await pedido('Arroz'));
+                console.log(await pedido('Pizza')); //vai dar o erro e parar o program
+                console.log(await pedido('Feijão'));
+            }catch{
+                console.log(error); //traz o reject
+            }
+        }
+        
+        reservarPedido();
+    }
+    
+    Promisse All{
+
+        const pedido = (pedido) => {
+            return new Promise((resolve, reject) => {
+                if (pedido === 'Pizza') {
+                    return reject(`Não temos o seu pedido: ${pedido}`);
+                }
+                setTimeout(() => {
+                    resolve(`Chegou o seu pedido: ${pedido}`);
+                }, 4000);
+            });
+        }
+        Promise.all([
+            pedido('Arroz'),
+            pedido('Pizza'),
+        ]).then((resPedido) => {
+            console.log(resPedido[0]);
+            console.log(resPedido[1]);
+        }).catch( (error) => {
+            console.log(error);
+        });
+    }
+
+    Promise Race{
+        /**
+            Quando vc deseja executar varias operacoes assincronas sumultaneamente e obter o 
+            resultado da primeira operação que for concluida
+            Util quando voce tem um conjunto de promessas e esta interessado apenas no resultado
+            da primeira a ser resolvida ou rejeitada, ignorando as demais
+        */
+
+        const promise1 = new Promise((resolve, reject) => {
+            setTimeout(() => {
+                return resolve('Promise 1');
+            }, 3000);
+        });
+
+        const promise2 = new Promise((resolve, reject) => {
+            setTimeout(() => {
+                return resolve('Promise 2');
+            }, 4000);
+        });
+
+        const promise3 = new Promise((resolve, reject) => {
+            setTimeout(() => {
+                return reject('Promise 3');
+            }, 1000);
+        });
+
+        Promise.race(
+            [
+                promise1, 
+                promise2, 
+                promise3
+            ]
+        ).then((res) => {
+            console.log(res);
+        }).catch((err) => {
+            console.log(err); //independente se e erro ou nao, vem o primeiro
+        });
+    }
+
+    Promise AllSetled{
+
+        /*
+            Usada para lidar com varias promessas de forma assincrona e ober os resultados
+            de todas as promessa,
+            independente de terem sido resolvidas ou rejeitadas.
+
+            Ela retorna ua nova promessa que e resolvida com um array de obj. que descrevem 
+            o resultado de cada promessa.
+
+            Quando vc deseja aguardar a conclusao de um conjunto de promessas e obter informacoes
+            sobre todas elas.
+
+            Diferente do Primise.all, que é interrompido se alguma das proessas for rejeitada,
+            o Promise.allSetled aguardara a conclusao de todas as promessas, independente do
+            resultado    
+        */
+
+        const promise1 = new Promise((resolve, reject) => {
+            setTimeout(() => {
+                return resolve('Promise 1');
+            }, 3000);
+        });
+
+        const promise2 = new Promise((resolve, reject) => {
+            setTimeout(() => {
+                return resolve('Promise 2');
+            }, 4000);
+        });
+
+        const promise3 = new Promise((resolve, reject) => {
+            setTimeout(() => {
+                return reject('Promise 3');
+            }, 1000);
+        });
+
+        Promise.allSettled([
+            promise1,
+            promise2,
+            promise3
+        ]).then((ressAllSettled) => {
+            console.log(ressAllSettled);
+            ressAllSettled.forEach(item => {
+                if (item.status === 'fulfilled') {
+                    console.log(item.value); //valor
+                } else {
+                    console.log(item.reason, 'Puts deu erro aqui'); //razao
+                }
+
+            });
+        });
+    }
+}
