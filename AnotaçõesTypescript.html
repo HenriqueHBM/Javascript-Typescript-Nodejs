@@ -1,0 +1,18 @@
+install Typescript{
+    install nodeJs; //node -v
+    Typescript (npm install -g typescript); //tsc -v
+    tsc --init // para iniciar, caso erro possa ser a versao que um dos dois nao e compativel;
+    tsc "nome do arquivo" // cria uma copia do arquivo .ts para .js para rodar.
+    
+    //Plugins:
+        Code Runner //extensao vscode;
+        npm i -g ts-node //pra nao precisar compilar o arquivo .ts para .js para rodar;
+        Ctrl + Alt + n //rodar resultado.
+}
+
+Introducao{
+    const pedido = (pedido: any) =>{ //any(qualquer um, aqui basicamente vc passa o tipo da var que vai receber)
+        return `Deu bom seu pedido ${pedido}`;
+    }
+    console.log(pedido(50));
+}
