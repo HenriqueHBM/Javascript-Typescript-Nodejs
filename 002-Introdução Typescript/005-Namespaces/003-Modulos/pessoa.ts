@@ -1,0 +1,9 @@
+export namespace Pessoa1 {
+    export let nome = 'Jpap';
+
+    const data = 1 + 2;
+
+    export const calc = () => {
+        return data;
+    }
+}
