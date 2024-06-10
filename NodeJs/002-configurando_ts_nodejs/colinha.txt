@@ -1,0 +1,3 @@
+npm i -D typescript @types/nodes tsc
+
+npm i -D prettier
