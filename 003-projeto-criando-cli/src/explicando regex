@@ -1,0 +1,16 @@
+/[^\w\s-]/
+
+/  /: delimitam para nao dar erro no codigo
+[]: delimitam uma classe de caracteres, conjunto que podem corresponder
+a um determinado padrao
+
+^: negacao, indica que qualquer caracter que nao esteja presente
+na classe de caracteres definidos
+
+\w : escape em si, corresponde a qualque caracer alfanumerico
+[a-z, A-Z, 0 - 9, '_' ]
+
+\s : escape que corresponde a qualquer caracter de espaco em branco
+, quebra de linha
+
+-: caracter literal, pode deixar o '-' passar no caso
